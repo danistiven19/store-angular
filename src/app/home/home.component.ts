@@ -1,21 +1,36 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../services/product/product.service';
-
+import { from, map, Observable } from 'rxjs';
+import { ProductService } from '../../core/services/product/product.service';
+import { Product } from 'src/core/models/products.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  products$: Observable<Product[]> = from([]);
   constructor(
-    private productService: ProductService
-  ) {}
+    private productService: ProductService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
-    this.productService.getAllProducts()
-    .subscribe((data) => {
-console.log(data);
+    this.products$ = this.productService.getAllProducts()
+      .pipe(
+        map((data: Product[]) => data)
+      );
+  }
 
-    });
+  trackByProductIdFn = (index: number, product: Product) => {
+    return product.id;
+  };
+
+  goToDetails(id: string) {
+    if (!id) {
+      return;
+    }
+
+    this.route.navigate(['/product', id]);
   }
 }

@@ -1,0 +1,6 @@
+<p>product-detail works!</p>
+<div *ngIf="product$ | async; let product">
+    <p>
+    {{ product?.name }}
+    </p>
+</div>

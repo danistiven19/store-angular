@@ -1,2 +1,16 @@
 
-<h1>Hello Content!!</h1>
+<div class="home">
+    <h1>My Products List</h1>
+    <mat-grid-list cols="5" rowHeight="250px">
+        <mat-grid-tile *ngFor="let item of products$ | async; trackBy: trackByProductIdFn">
+            <mat-card-title-group>
+                <mat-grid-tile-header>
+                    <p (click)="goToDetails(item?.id || '')"> {{item?.name}} </p>
+                </mat-grid-tile-header>
+                <mat-card-content>
+                    <img [src]="item?.image" height="100" width="100" />
+                </mat-card-content> $ {{item?.price}}
+            </mat-card-title-group>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
