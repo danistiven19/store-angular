@@ -3,9 +3,9 @@
     <h1>My Products List</h1>
     <mat-grid-list cols="5" rowHeight="250px">
         <mat-grid-tile *ngFor="let item of products$ | async; trackBy: trackByProductIdFn">
-            <mat-card-title-group>
+            <mat-card-title-group matTooltip="I'm blocked, please contact support" [matTooltipDisabled]="!item.isBlocked">
                 <mat-grid-tile-header>
-                    <p (click)="goToDetails(item?.id || '')"> {{item?.name}} </p>
+                    <p class="product-name" [ngClass]="{ 'blocked': item.isBlocked }" (click)="goToDetails(item, $event)"> {{item?.name}} </p>
                 </mat-grid-tile-header>
                 <mat-card-content>
                     <img [src]="item?.image" height="100" width="100" />

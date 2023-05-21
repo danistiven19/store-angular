@@ -1,6 +1,27 @@
-<p>product-detail works!</p>
-<div *ngIf="product$ | async; let product">
-    <p>
-    {{ product?.name }}
-    </p>
-</div>
+<a href="" routerLink="">Back</a>
+
+<div *ngIf="isLoading; else loaded">Loading ....</div>
+
+<ng-template #loaded>
+    <form [formGroup]="productForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name" />
+            <mat-error *ngIf="productForm.controls['name'].hasError('required')">Required</mat-error>
+            <mat-error *ngIf="productForm.controls['name'].hasError('minlength')">Min requirement has not been met</mat-error>
+            <mat-error *ngIf="productForm.controls['name'].hasError('duplicated')">The item name already exists</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="price" />
+            <span matTextPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Image URL</mat-label>
+            <input matInput type="url" formControlName="image" />
+        </mat-form-field>
+        <img [src]="productForm.value?.image" height="100" width="100"/>
+        <mat-label>Is Blocked</mat-label>
+        <mat-slide-toggle formControlName="isBlocked"></mat-slide-toggle>
+    </form>
+</ng-template>

@@ -1,6 +1,14 @@
 .home {
     .mat-grid-tile {
         border-radius: 10%;
+
+        .product-name {
+            cursor: pointer;
+        }
+
+        .blocked {
+            cursor: not-allowed;
+        }
     }
 }
 

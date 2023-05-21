@@ -26,11 +26,12 @@ export class HomeComponent {
     return product.id;
   };
 
-  goToDetails(id: string) {
-    if (!id) {
+  goToDetails(product: Product, e: Event) {
+    if (!product || !product.id || product.isBlocked) {
+      e.preventDefault();
       return;
     }
 
-    this.route.navigate(['/product', id]);
+    this.route.navigate(['/product', product.id]);
   }
 }

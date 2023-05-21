@@ -7,6 +7,7 @@ import { Product } from 'src/core/models/products.model';
   providedIn: 'root'
 })
 export class ProductService {
+  users = ['test'];
 
   constructor(
     private http: HttpClient
@@ -20,5 +21,9 @@ export class ProductService {
 
   getProductById(id: string) {
     return this.http.get<Product>(this.PRODUCT_API_URL + id);
+  }
+
+  getProductByName(productName: string) {
+    return this.http.get<Product>(`${this.PRODUCT_API_URL}/name/${productName}`);
   }
 }
