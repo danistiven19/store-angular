@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../../environments/environment';
-import { Product } from 'src/core/models/products.model';
+import { environment } from '../../../../environments/environment';
+import { Product } from 'src/app/core/models/products.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class ProductService {
 
   getProductByName(productName: string) {
     return this.http.get<Product>(`${this.PRODUCT_API_URL}/name/${productName}`);
+  }
+
+  deleteAllProducts() {
+    return this.http.delete<Product>(`${this.PRODUCT_API_URL}`);
   }
 }

@@ -11,18 +11,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { InfiniteScrollDirective } from './core/shared/directives/infinite-scroll.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    InfiniteScrollDirective
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   bootstrap: [AppComponent]
 })

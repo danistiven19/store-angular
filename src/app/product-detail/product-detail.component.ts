@@ -2,9 +2,9 @@ import { Component, forwardRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, catchError, filter, finalize, map, of, switchMap, takeUntil } from 'rxjs';
-import { Product } from 'src/core/models/products.model';
-import { ProductService } from 'src/core/services/product/product.service';
-import { ProductValidator } from 'src/core/validators/productName.validator';
+import { Product } from 'src/app/core/models/products.model';
+import { ProductService } from 'src/app/core/services/product/product.service';
+import { ProductValidator } from 'src/app/core/validators/productName.validator';
 
 @Component({
   selector: 'app-product-detail',

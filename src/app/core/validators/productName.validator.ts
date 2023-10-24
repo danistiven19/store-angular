@@ -1,7 +1,7 @@
 import { AsyncValidator, FormControl, ValidationErrors } from "@angular/forms";
 import { Observable, debounceTime, distinctUntilChanged, first, of, switchMap, timer, map } from "rxjs";
 import { ProductService } from "../services/product/product.service";
-import { Product } from 'src/core/models/products.model';
+import { Product } from 'src/app/core/models/products.model';
 
 export class ProductValidator {
     static productNameAsync(productService: ProductService) {
@@ -9,6 +9,10 @@ export class ProductValidator {
             console.log(productService.users);
             if (!control || !control.value) {
                 return of({ required: true });
+            }
+
+            if (control.pristine) {
+                return of({});
             }
 
             return timer(500).pipe(
