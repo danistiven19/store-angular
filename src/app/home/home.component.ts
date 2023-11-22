@@ -5,6 +5,7 @@ import { Product } from 'src/app/core/models/products.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreConfirmationModal } from 'src/app/core/shared/confirmationModal/confirmation-modal';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

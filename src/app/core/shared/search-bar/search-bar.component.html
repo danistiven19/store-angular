@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Start typing to search ...</mat-label>
+    <input matInput type="text" [ngModel]="value$ | async" (ngModelChange)="search($event)" />
+
+    <button matSuffix mat-icon-button (click)="reset()">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
