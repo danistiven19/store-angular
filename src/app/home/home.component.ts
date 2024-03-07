@@ -37,6 +37,7 @@ export class HomeComponent {
     ).subscribe();
   }
 
+
   loadData(filterVal: string) {
     console.log(filterVal)
     this.products$ = this.productService.getAllProducts(filterVal)
