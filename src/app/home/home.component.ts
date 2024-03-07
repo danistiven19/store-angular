@@ -25,11 +25,6 @@ export class HomeComponent {
     private store: Store<{ filter: string }>
     ) {
     this.filterValue$ = store.select('filter');
-    // this.filterValue$.pipe(
-    //     takeUntilDestroyed(),
-    //     filter((filterVal) => !filterVal || filterVal.length >= 3),
-    //     switchMap((filterVal) => this.loadData(filterVal))
-    //   ).subscribe();
     this.reloadData();
   }
 
