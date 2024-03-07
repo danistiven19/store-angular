@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { filter, from, map, Observable, switchMap } from 'rxjs';
+import { filter, from, map, Observable, switchMap, tap, take } from 'rxjs';
 import { ProductService } from '../core/services/product/product.service';
 import { Product } from 'src/app/core/models/products.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreConfirmationModal } from 'src/app/core/shared/confirmationModal/confirmation-modal';
+import { Store } from '@ngrx/store';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filterActions } from '../core/store/actions';
 
 @Component({
   selector: 'app-home',
@@ -13,18 +16,35 @@ import { StoreConfirmationModal } from 'src/app/core/shared/confirmationModal/co
 })
 export class HomeComponent {
   products$: Observable<Product[]> = from([]);
+  filterValue$: Observable<string>;
+
   constructor(
     private productService: ProductService,
     private route: Router,
-    private dialog: MatDialog
-  ) { }
-
-  ngOnInit() {
-   this.loadData();
+    private dialog: MatDialog,
+    private store: Store<{ filter: string }>
+    ) {
+    this.filterValue$ = store.select('filter');
+    // this.filterValue$.pipe(
+    //     takeUntilDestroyed(),
+    //     filter((filterVal) => !filterVal || filterVal.length >= 3),
+    //     switchMap((filterVal) => this.loadData(filterVal))
+    //   ).subscribe();
+    this.reloadData();
   }
 
-  loadData() {
-    this.products$ = this.productService.getAllProducts()
+  reloadData(limit?: number) {
+    const takeFn = () => limit ? take(limit) : takeUntilDestroyed();
+    this.filterValue$.pipe(
+      filter((filterVal) => !filterVal || filterVal.length >= 3),
+      switchMap((filterVal) => this.loadData(filterVal)),
+      takeFn()
+    ).subscribe();
+  }
+
+  loadData(filterVal: string) {
+    console.log(filterVal)
+    this.products$ = this.productService.getAllProducts(filterVal)
     .pipe(
       map((data: Product[]) => data)
     );
@@ -51,13 +71,24 @@ export class HomeComponent {
     .pipe(
       filter((result) => result),
       switchMap(() => this.productService.deleteAllProducts()),
-      switchMap(() => this.loadData())
+      tap(() => this.reloadData(1))
     )
-    .subscribe((result) => console.log(result));
+    .subscribe();
+  }
+
+  generate() {
+    const confirmationDialog =this.dialog.open(StoreConfirmationModal);
+    confirmationDialog.afterClosed()
+    .pipe(
+      filter((result) => result),
+      switchMap(() => this.productService.generateAllProducts()),
+      tap(() => this.reloadData(1))
+    )
+    .subscribe();
   }
 
   onScrollReached(value: any) {
     console.log(value);
-    
+
   }
 }

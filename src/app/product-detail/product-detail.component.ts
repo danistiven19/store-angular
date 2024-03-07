@@ -5,6 +5,7 @@ import { Observable, Subject, catchError, filter, finalize, map, of, switchMap, 
 import { Product } from 'src/app/core/models/products.model';
 import { ProductService } from 'src/app/core/services/product/product.service';
 import { ProductValidator } from 'src/app/core/validators/productName.validator';
+import { filterActions } from '../core/store/actions';
 
 @Component({
   selector: 'app-product-detail',
@@ -60,7 +61,7 @@ export class ProductDetailComponent {
   }
 
   loadProduct(): Observable<Product> {
-    
+
     return this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id')?.toString();
