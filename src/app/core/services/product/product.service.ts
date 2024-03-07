@@ -15,8 +15,8 @@ export class ProductService {
 
   readonly PRODUCT_API_URL = `${environment.MAIN_API_URL}products/`;
 
-  getAllProducts() {
-    return this.http.get<Product[]>(this.PRODUCT_API_URL);
+  getAllProducts(filterVal: string) {
+    return this.http.post<Product[]>(this.PRODUCT_API_URL, {name: filterVal});
   }
 
   getProductById(id: string) {
@@ -29,5 +29,9 @@ export class ProductService {
 
   deleteAllProducts() {
     return this.http.delete<Product>(`${this.PRODUCT_API_URL}`);
+  }
+
+  generateAllProducts() {
+    return this.http.post(`${this.PRODUCT_API_URL}/generate`, {autogenerate: true});
   }
 }

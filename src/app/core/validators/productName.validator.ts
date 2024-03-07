@@ -6,7 +6,6 @@ import { Product } from 'src/app/core/models/products.model';
 export class ProductValidator {
     static productNameAsync(productService: ProductService) {
         return (control: FormControl): Observable<ValidationErrors | null> => {
-            console.log(productService.users);
             if (!control || !control.value) {
                 return of({ required: true });
             }
@@ -36,5 +35,5 @@ export class ProductValidator {
             // )
         };
     }
-    
+
 }

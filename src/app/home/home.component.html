@@ -1,9 +1,9 @@
 
 <div class="home">
     <search-bar></search-bar>
-
     <h1>My Products List</h1>
     <button mat-button (click)="deleteAll()" >Delete All</button>
+    <button mat-button (click)="generate()" >Generate Products</button>
     <mat-grid-list cols="5" rowHeight="250px">
         <mat-grid-tile appInfiniteScroll (onScroll)="onScrollReached($event)" *ngFor="let item of products$ | async; trackBy: trackByProductIdFn">
             <mat-card-title-group matTooltip="I'm blocked, please contact support" [matTooltipDisabled]="!item.isBlocked">
